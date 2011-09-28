@@ -26,7 +26,7 @@ import com.speakwrite.api.JobDownloadRequest.DownloadType;
 
 public class Client {
 	
-	public static String API_BASE_URL = "http://localhost:52877/api/v1/";
+	public static String API_BASE_URL = "https://service.speak-write.com/integration/api/v1/";
 	
 	public Client() {
 		
@@ -37,6 +37,9 @@ public class Client {
 		HttpPost httpPost = new HttpPost(API_BASE_URL + "completedjobs.ashx");
 		
 		List<NameValuePair> nvps = GetBaseParams(request);
+		if(request.maxAge != null) {
+			nvps.add(new BasicNameValuePair("maxAge", request.maxAge.toString()));
+		}
 		httpPost.setEntity(new UrlEncodedFormEntity(nvps, HTTP.UTF_8));
 
 		HttpResponse response = httpClient.execute(httpPost);

@@ -27,6 +27,7 @@ public class Console {
 		System.out.println(response.jobs.size());
 		
 		System.out.println("download job");
+		
 		JobDownloadRequest downloadRequest = new JobDownloadRequest();
 		
 		
