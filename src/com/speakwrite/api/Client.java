@@ -63,7 +63,15 @@ public class Client {
 		HttpPost httpPost = new HttpPost(API_BASE_URL + "download.ashx");
 		
 		List<NameValuePair> nvps = GetBaseParams(request);
-		nvps.add(new BasicNameValuePair("filename", request.fileName));
+		if(request.fileName == null || request.fileName == "") {
+			if(request.customFileName == null || request.customFileName == "") {
+				throw new IllegalArgumentException("Must supply either fileName or customFileName");
+			}
+			nvps.add(new BasicNameValuePair("customFileName", request.customFileName));
+		} 
+		else {
+			nvps.add(new BasicNameValuePair("filename", request.fileName));	
+		}		
 		nvps.add(new BasicNameValuePair("filetype", request.type == DownloadType.Document ? "document" : "audio-source"));
 		httpPost.setEntity(new UrlEncodedFormEntity(nvps, HTTP.UTF_8));
 
