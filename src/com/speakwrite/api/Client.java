@@ -75,7 +75,7 @@ public class Client {
 		else {
 			nvps.add(new BasicNameValuePair("filename", request.fileName));	
 		}		
-		nvps.add(new BasicNameValuePair("filetype", request.type == DownloadType.Document ? "document" : "audio-source"));
+		nvps.add(new BasicNameValuePair("filetype", request.type == DownloadType.Document ? "document" : "audio-wav"));
 		httpPost.setEntity(new UrlEncodedFormEntity(nvps, HTTP.UTF_8));
 
 		HttpResponse response = httpClient.execute(httpPost);
