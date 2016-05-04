@@ -5,4 +5,5 @@ import java.io.File;
 public class JobUploadRequest extends BaseApiRequest {
 	public File audioFile;
 	public String customFileName;
+	public Boolean isGroupConversation;
 }

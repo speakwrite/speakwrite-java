@@ -26,12 +26,18 @@ import com.speakwrite.api.JobDownloadRequest.DownloadType;
 
 public class Client {
 	
-	public static String API_BASE_URL = "https://service.speak-write.com/integration/api/v1/";
+	public static String API_BASE_URL = "https://service.speak-write.com/integration/api/v2/";
 	
 	public Client() {
 		
 	}
-	
+
+	/**
+	 * Get completed jobs via the SpeakWrite API
+	 * @param request The CompletedJobRequest to submit
+	 * @return A response with the status of the operation
+	 * @throws Exception
+     */
 	public CompletedJobsResponse getCompletedJobs(CompletedJobsRequest request)	throws Exception {
 		DefaultHttpClient httpClient = new DefaultHttpClient();
 		HttpPost httpPost = new HttpPost(API_BASE_URL + "completedjobs.ashx");
@@ -45,7 +51,13 @@ public class Client {
 		HttpResponse response = httpClient.execute(httpPost);
 		return ReadJson(CompletedJobsResponse.class, response);
 	}
-	
+
+	/**
+	 * Submit a new job via the API to SpeakWrite for transcription
+	 * @param request The JobUploadRequest to submit
+	 * @return A response with status of the operation
+	 * @throws Exception
+     */
 	public JobUploadResponse uploadJob(JobUploadRequest request) throws Exception {
 		DefaultHttpClient httpClient = new DefaultHttpClient();
 		HttpPost filePost = new HttpPost(API_BASE_URL + "submitjob.ashx");
@@ -55,11 +67,18 @@ public class Client {
 		reqEntity.addPart("accountNumber", new StringBody(request.accountNumber));
 		reqEntity.addPart("pin", new StringBody(request.pin));
 		reqEntity.addPart("audioFile", bin);
+		reqEntity.addPart("isGroupConversation", new StringBody(request.isGroupConversation.toString()));
 		filePost.setEntity(reqEntity);
 		HttpResponse response = httpClient.execute(filePost);
 		return ReadJson(JobUploadResponse.class, response);
 	}
-	
+
+	/**
+	 * Download a completed job from SpeakWrite's API
+	 * @param request The request containing information on which job to download
+	 * @return A response with status of the operation
+	 * @throws Exception
+     */
 	public JobDownloadResponse download(JobDownloadRequest request) throws Exception {
 		DefaultHttpClient httpClient = new DefaultHttpClient();
 
