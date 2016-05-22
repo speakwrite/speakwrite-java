@@ -38,6 +38,7 @@ Please open an issue on the repository for any help, feature requests, or bug re
   `pin`|string|**Y**|Your pin
   `customFilename`|string|N|Descriptive name for the job being submitted
   `audiofile`|binary|**Y**|Binary representation of the file to upload
+  `isGroupConversation`|string|N|True if the audio has more than one speaker, False otherwise
   
 - **Success Response**
 
